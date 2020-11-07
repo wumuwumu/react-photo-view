@@ -223,8 +223,8 @@ export default class PhotoView extends React.Component<IPhotoViewProps, typeof i
         this.initialTouchState = !isStillX
           ? TouchStartEnum.X
           : newClientY > clientY
-          ? TouchStartEnum.YPull
-          : TouchStartEnum.YPush;
+            ? TouchStartEnum.YPull
+            : TouchStartEnum.YPush;
       }
 
       let offsetX = newClientX - lastMoveClientX;
@@ -344,32 +344,38 @@ export default class PhotoView extends React.Component<IPhotoViewProps, typeof i
   };
 
   handleMaskMouseDown = e => {
+    e.stopPropagation();
     this.handleMaskStart(e.clientX, e.clientY);
   };
 
   handleMaskTouchStart = e => {
+    e.stopPropagation();
     const { clientX, clientY } = e.touches[0];
     this.handleMaskStart(clientX, clientY);
   };
 
   handleTouchStart = e => {
+    e.stopPropagation();
     const { clientX, clientY, touchLength } = getMultipleTouchPosition(e);
     this.handleStart(clientX, clientY, touchLength);
   };
 
   handleMouseDown = e => {
     e.preventDefault();
+    e.stopPropagation();
     this.handleStart(e.clientX, e.clientY, 0);
   };
 
   handleTouchMove = e => {
     e.preventDefault();
+    e.stopPropagation();
     const { clientX, clientY, touchLength } = getMultipleTouchPosition(e);
     this.onMove(clientX, clientY, touchLength);
   };
 
   handleMouseMove = e => {
     e.preventDefault();
+    e.stopPropagation();
     this.onMove(e.clientX, e.clientY);
   };
 
@@ -403,20 +409,20 @@ export default class PhotoView extends React.Component<IPhotoViewProps, typeof i
           reachState: ReachTypeEnum.Normal, // 重置触发状态
           ...(hasMove
             ? slideToPosition({
-                x,
-                y,
-                lastX,
-                lastY,
-                width,
-                height,
-                scale,
-                rotate,
-                touchedTime,
-              })
+              x,
+              y,
+              lastX,
+              lastY,
+              width,
+              height,
+              scale,
+              rotate,
+              touchedTime,
+            })
             : {
-                x,
-                y,
-              }),
+              x,
+              y,
+            }),
         },
         () => {
           if (onReachUp) {
