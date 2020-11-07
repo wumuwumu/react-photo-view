@@ -97,6 +97,7 @@ export default class PhotoSlider extends React.Component<IPhotoSliderProps, Phot
       photoIndex: index,
     });
     window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('popstate', this.handleBack);
   }
 
   componentWillUnmount() {
@@ -167,6 +168,11 @@ export default class PhotoSlider extends React.Component<IPhotoSliderProps, Phot
           break;
       }
     }
+  };
+
+  handleBack = (evt: KeyboardEvent) => {
+    evt.stopPropagation();
+    console.log("范湖一")
   };
 
   handleReachVerticalMove = (clientY, scale) => {

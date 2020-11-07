@@ -306,6 +306,7 @@ export default class PhotoView extends React.Component<IPhotoViewProps, typeof i
   };
 
   handleWheel = e => {
+    e.stopPropagation();
     const { clientX, clientY, deltaY } = e;
     const { width, naturalWidth, reachState } = this.state;
     if (reachState !== ReachTypeEnum.Normal) {
